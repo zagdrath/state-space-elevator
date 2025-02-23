@@ -11,12 +11,16 @@ import edu.wpi.first.units.measure.*;
 import static edu.wpi.first.units.Units.*;
 
 public final class Constants {
+  public final class OperatorInterfaces {
+    public final static int kXboxControllerPort = 1;
+  }
+
   public final class Elevator {
+    public final static Time kLoopTime = Seconds.of(0.020);
+
     /* Motor CAN IDs */
     public final static int kLeaderMotorID = 2;
     public final static int kFollowerMotorID = 3;
-
-    public final static Time kLoopTime = Seconds.of(0.020);
 
     /* Encoder channels */
     public final static int kEncoderChannelA = 0;
