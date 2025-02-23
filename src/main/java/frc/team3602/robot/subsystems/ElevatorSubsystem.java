@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2025 FRC Team 3602. Some rights reserved. This work is
+ * licensed under the terms of the MIT license which can be found
+ * in the root directory of this project.
+ */
+
 package frc.team3602.robot.subsystems;
 
 import edu.wpi.first.math.Nat;
@@ -30,7 +36,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final Encoder elevatorEncoder = new Encoder(kEncoderChannelA, kEncoderChannelB);
 
   /* Controls */
-  private TrapezoidProfile.State elevatorHeight;
+  private TrapezoidProfile.State elevatorState;
 
   private final TrapezoidProfile trapezoidProfile = new TrapezoidProfile(new TrapezoidProfile.Constraints(
       kMaxVelocity.in(MetersPerSecond), kMaxAcceleration.in(MetersPerSecondPerSecond)));
@@ -83,7 +89,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // Step the trapezoid profile forward 20ms and set it as the next reference
-    lastProfiledReference = trapezoidProfile.calculate(kLoopTime.in(Seconds), lastProfiledReference, elevatorHeight);
+    lastProfiledReference = trapezoidProfile.calculate(kLoopTime.in(Seconds), lastProfiledReference, elevatorState);
     elevatorLoop.setNextR(lastProfiledReference.position, lastProfiledReference.velocity);
 
     // Correct the kalman filter's state vector estimate with encoder data
