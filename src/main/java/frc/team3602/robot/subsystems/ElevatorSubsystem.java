@@ -16,7 +16,9 @@ import edu.wpi.first.math.system.LinearSystemLoop;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.units.measure.*;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static edu.wpi.first.units.Units.*;
@@ -84,6 +86,20 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private double getEncoderRate() {
     return elevatorEncoder.getRate();
+  }
+
+  public Command setElevatorState(Distance elevatorPosition, LinearVelocity elevatorVelocity) {
+    return runOnce(() -> {
+      elevatorState.position = elevatorPosition.in(Meters);
+      elevatorState.velocity = elevatorVelocity.in(MetersPerSecond);
+    });
+  }
+
+  public Command stopElevator() {
+    return runOnce(() -> {
+      leaderMotor.stopMotor();
+      followerMotor.stopMotor();
+    });
   }
 
   @Override

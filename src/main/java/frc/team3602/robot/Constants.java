@@ -22,6 +22,9 @@ public final class Constants {
     public final static int kEncoderChannelA = 0;
     public final static int kEncoderChannelB = 1;
 
+    /* Elevator scoring heights */
+    public final static Distance kCoralIntake = Inches.of(0.0);
+
     /* Motion profile */
     public final static LinearVelocity kMaxVelocity = MetersPerSecond.of(0.0);
     public final static LinearAcceleration kMaxAcceleration = MetersPerSecondPerSecond.of(0.0);

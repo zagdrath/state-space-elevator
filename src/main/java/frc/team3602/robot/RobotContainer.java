@@ -12,7 +12,10 @@ import frc.team3602.robot.subsystems.ElevatorSubsystem;
 
 public class RobotContainer {
   /* Subsystems */
-  private final static ElevatorSubsystem elevatorSubsys = new ElevatorSubsystem();
+  private final ElevatorSubsystem elevatorSubsys = new ElevatorSubsystem();
+
+  /* Superstructure */
+  private final Superstructure superstructure = new Superstructure(elevatorSubsys);
 
   public RobotContainer() {
     configureBindings();
