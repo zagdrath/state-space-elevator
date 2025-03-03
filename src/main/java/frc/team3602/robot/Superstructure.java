@@ -17,7 +17,7 @@ import static frc.team3602.robot.Constants.Elevator.*;
 
 public class Superstructure {
   /* Subsystems */
-  private ElevatorSubsystem elevatorSubsys = new ElevatorSubsystem();
+  private ElevatorSubsystem elevatorSubsys;
 
   public Superstructure(ElevatorSubsystem elevatorSubsys) {
     this.elevatorSubsys = elevatorSubsys;
@@ -25,7 +25,7 @@ public class Superstructure {
 
   public Command coralIntake() {
     return Commands.sequence(
-      elevatorSubsys.setElevatorState(kCoralIntake, MetersPerSecond.of(0.0))
+      elevatorSubsys.setElevatorState(kCoralIntake)
     );
   }
 }

@@ -35,9 +35,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final TalonFX leaderMotor = new TalonFX(kLeaderMotorID);
   private final TalonFX followerMotor = new TalonFX(kFollowerMotorID);
 
-  /* Encoders */
-  private final Encoder elevatorEncoder = new Encoder(kEncoderChannelA, kEncoderChannelB);
-
   /* Controls */
   private TrapezoidProfile.State elevatorState;
 
@@ -82,11 +79,20 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   private double getEncoderDistance() {
-    return elevatorEncoder.getDistance();
+    var gearRadius = Math.PI * kRadius.in(Inches) * 2.0;
+
+    return leaderMotor.getRotorPosition().getValueAsDouble() * (gearRadius / kGearing);
   }
 
   private double getEncoderRate() {
-    return elevatorEncoder.getRate();
+    return leaderMotor.getRotorVelocity().getValueAsDouble();
+  }
+
+  public Command setElevatorState(Distance elevatorPosition) {
+    return runOnce(() -> {
+      elevatorState.position = elevatorPosition.in(Meters);
+      elevatorState.velocity = MetersPerSecond.of(0.0).magnitude();
+    });
   }
 
   public Command setElevatorState(Distance elevatorPosition, LinearVelocity elevatorVelocity) {
@@ -133,8 +139,5 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // Ensure the follower is following the leader
     followerMotor.setControl(new Follower(kLeaderMotorID, false));
-
-    /* Encoder configs */
-    elevatorEncoder.setDistancePerPulse(0.0);
   }
 }

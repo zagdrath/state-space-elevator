@@ -35,7 +35,7 @@ public final class Constants {
 
     /* Linear system */
     public final static Mass kMass = Kilograms.of(0.0);
-    public final static Distance kRadius = Meters.of(0.0);
+    public final static Distance kRadius = Inches.of(1.751);
     public final static double kGearing = (12.0 / 1.0);
 
     /* Kalman filter */
